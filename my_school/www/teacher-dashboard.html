@@ -1,0 +1,18 @@
+<h2 id="teacher-name">Loading...</h2>
+<div id="courses-box"><h3>Your Courses</h3><div id="courses-list">Loading...</div></div>
+<script>
+frappe.ready(function() {
+  frappe.call({
+    method: "my_school.api.teacher_portal.get_teacher_summary",
+    callback: function(r) {
+      if(!r.message) { $('#teacher-name').text('No data or not authorized'); return; }
+      const data = r.message;
+      $('#teacher-name').text(data.teacher.instructor_name || data.teacher.name);
+      let courses = data.courses || [];
+      if(!courses.length) $('#courses-list').html('<em>No courses assigned</em>');
+      else { let html = '<ul>'; courses.forEach(c => html += `<li>${c.course_name} (${c.course_code || c.name})</li>`); html += '</ul>'; $('#courses-list').html(html); }
+    },
+    error: function(err){ $('#teacher-name').text('Error fetching data'); console.error(err); }
+  });
+});
+</script>

@@ -1,0 +1,29 @@
+<h2 id="student-name">Loading...</h2>
+<div id="attendance-box"><h3>Attendance</h3><div id="attendance-summary">Loading...</div></div>
+<div id="assessments-box"><h3>Assessments & Grades</h3><div id="assessments-list">Loading...</div></div>
+<script>
+frappe.ready(function() {
+  frappe.call({
+    method: "my_school.api.student_portal.get_student_summary",
+    callback: function(r) {
+      if(!r.message) { $('#student-name').text('No data or not authorized'); return; }
+      const data = r.message;
+      $('#student-name').text(data.student.student_name || data.student.name);
+      let att = data.attendance_summary || {};
+      let attHtml = "<ul>";
+      for(let k in att) attHtml += `<li>${k}: ${att[k]}</li>`;
+      attHtml += "</ul>";
+      $('#attendance-summary').html(attHtml);
+      let ass = data.assessments || [];
+      if(!ass.length) $('#assessments-list').html('<em>No assessments</em>');
+      else {
+        let table = '<table><thead><tr><th>Assessment</th><th>Date</th><th>Score</th><th>Grade</th></tr></thead><tbody>';
+        ass.forEach(a => { table += `<tr><td>${a.assessment||a.name}</td><td>${a.date||''}</td><td>${a.score||''}</td><td>${a.grade||''}</td></tr>`; });
+        table += '</tbody></table>';
+        $('#assessments-list').html(table);
+      }
+    },
+    error: function(err){ $('#student-name').text('Error fetching data'); console.error(err); }
+  });
+});
+</script>
