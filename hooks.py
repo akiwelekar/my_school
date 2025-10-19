@@ -1,8 +1,8 @@
 app_name = "my_school"
 app_title = "My School"
-app_publisher = "Your Dept"
+app_publisher = "ERP-CSE-DBATU"
 app_description = "Custom Education extensions"
-app_email = "you@example.com"
+app_email = "akiwelekar@gmail.com"
 app_license = "MIT"
 
 role_home_page = {
