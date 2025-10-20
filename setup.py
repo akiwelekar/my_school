@@ -1,13 +1,11 @@
 from setuptools import setup, find_packages
-import re
-_version_re = re.compile(r"__version__\s+=\s+(.*)")
-with open('my_school/__init__.py', 'r') as f:
-    version = _version_re.search(f.read()).group(1).strip("'\"\n ")
+
 setup(
     name='my_school',
-    version=version,
-    description='Custom Education extensions for dept',
-    author='Your Dept',
+    version='0.0.1',
+    description='School Management App for ERPNext',
+    author='Arvind Kiwelekar',
+    author_email='akiwelekar@gmail.com',  # Optional but recommended
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
