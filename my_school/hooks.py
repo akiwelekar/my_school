@@ -4,6 +4,3 @@ app_publisher = "ERP-CSE-DBATU"
 app_description = "Custom Education extensions"
 app_email = "akiwelekar@gmail.com"
 app_license = "MIT"
-role_home_page = {
-    "Student": "/student-dashboard",   
-}
